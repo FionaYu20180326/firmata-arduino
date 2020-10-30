@@ -103,6 +103,11 @@
 #endif
 #define SERIAL_MESSAGE          firmata::SERIAL_DATA // communicate with serial devices, including other boards
 
+#ifdef RS485_MESSAGE
+#undef RS485_MESSAGE
+#endif
+#define RS485_MESSAGE          firmata::RS485_DATA // communicate with serial devices, including other boards
+
 #ifdef ENCODER_DATA
 #undef ENCODER_DATA
 #endif
@@ -259,6 +264,11 @@
 #undef PIN_MODE_ENCODER
 #endif
 #define PIN_MODE_ENCODER        firmata::PIN_MODE_ENCODER // pin configured for rotary encoders
+
+#ifdef PIN_MODE_RS485
+#undef PIN_MODE_RS485
+#endif
+#define PIN_MODE_RS485         firmata::PIN_MODE_RS485 // pin configured for serial communication
 
 #ifdef PIN_MODE_SERIAL
 #undef PIN_MODE_SERIAL

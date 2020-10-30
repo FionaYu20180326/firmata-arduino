@@ -54,6 +54,8 @@ static const int END_SYSEX =               0xF7; // end a MIDI Sysex message
 
 static const int SERIAL_DATA =             0x60; // communicate with serial devices, including other boards
 static const int ENCODER_DATA =            0x61; // reply with encoders current positions
+static const int RS485_DATA =              0x62; // communicate with rs485 serial devices, including other boards
+
 static const int SERVO_CONFIG =            0x70; // set max angle, minPulse, maxPulse, freq
 static const int STRING_DATA =             0x71; // a string message with 14-bits per char
 static const int STEPPER_DATA =            0x72; // control a stepper motor

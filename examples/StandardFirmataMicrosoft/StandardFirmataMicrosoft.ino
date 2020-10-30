@@ -391,8 +391,8 @@ void setPinModeCallback(byte pin, int mode)
 #endif
       break;
 #ifdef FIRMATA_RS485_FEATURE      
-    // case PIN_MODE_RS485:
-    //      RS485Feature.handlePinMode(pin, PIN_MODE_RS485);
+    case PIN_MODE_RS485:
+      RS485Feature.handlePinMode(pin, PIN_MODE_RS485);
 #endif
     default:
       Firmata.sendString("Unknown pin mode"); // TODO: put error msgs in EEPROM
@@ -748,6 +748,11 @@ void sysexCallback(byte command, byte argc, byte *argv)
 #ifdef FIRMATA_SERIAL_FEATURE
         serialFeature.handleCapability(pin);
 #endif
+
+#ifdef FIRMATA_RS485_FEATURE
+       RS485Feature.handleCapability(pin);
+#endif
+
 #ifdef FIRMATA_SPI_FEATURE
         spiFeature.handleCapability(pin);
 #endif
@@ -787,6 +792,12 @@ void sysexCallback(byte command, byte argc, byte *argv)
       serialFeature.handleSysex(command, argc, argv);
 #endif
       break;
+      
+      case RS485_MESSAGE:
+#ifdef FIRMATA_RS485_FEATURE
+       RS485Feature.handleSysex(command, argc, argv);
+#endif
+
 #ifdef FIRMATA_SPI_FEATURE
     case SPI_DATA:
       spiFeature.handleSysex(command, argc, argv);
@@ -812,6 +823,11 @@ void systemResetCallback()
 
   // initialize a defalt state
   // TODO: option to load config from EEPROM instead of default
+
+#ifdef FIRMATA_RS485_FEATURE
+       RS485Feature.reset();
+#endif
+
 
 #ifdef FIRMATA_SERIAL_FEATURE
   serialFeature.reset();
@@ -937,4 +953,9 @@ void loop()
 #ifdef FIRMATA_SERIAL_FEATURE
   serialFeature.update();
 #endif
+
+#ifdef FIRMATA_RS485_FEATURE
+  RS485Feature.update();
+#endif
+
 }
